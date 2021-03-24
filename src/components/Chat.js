@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import { Avatar, IconButton } from "@material-ui/core";
 import {
@@ -8,21 +8,38 @@ import {
   InsertEmoticon,
 } from "@material-ui/icons";
 import MicIcon from "@material-ui/icons/Mic";
+import { useParams } from "react-router-dom";
+import db from "../firebase";
 
 const Chat = () => {
   const [input, setInput] = useState("");
+  const [seed, setSeed] = useState(0);
+  const { roomId } = useParams();
+  const [roomName, setRoomName] = useState("");
+
   const sendMessage = (e) => {
     e.preventDefault();
-
     console.log("You typed, >>>", input);
   };
+
+  useEffect(() => {
+    if (roomId) {
+      db.collection("rooms")
+        .doc(roomId)
+        .snapshot((snapshot) => setRoomName(snapshot.data().name));
+    }
+  }, [roomId]);
+
+  useEffect(() => {
+    setSeed(Math.floor(Math.random() * 5000));
+  }, []);
 
   return (
     <div className="chat">
       <div className="chat__header">
-        <Avatar />
+        <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className="chat__headerInfo">
-          <h3> room name</h3>
+          <h3> {roomName} </h3>
           <p> Last seen at ...</p>
         </div>
         <div className="chat__headerRight">

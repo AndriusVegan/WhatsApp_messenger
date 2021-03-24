@@ -12,7 +12,7 @@ export const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    db.collection("VeganChat").onSnapshot((snapshot) => {
+    db.collection("rooms").onSnapshot((snapshot) => {
       // const testRooms = snapshot.docs.map((doc) => console.log(doc.data()));
       setRooms(
         snapshot.docs.map((doc) => ({
