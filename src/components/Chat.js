@@ -32,7 +32,7 @@ const Chat = () => {
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
-  }, []);
+  }, [roomId]);
 
   return (
     <div className="chat">

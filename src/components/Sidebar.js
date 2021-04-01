@@ -12,7 +12,7 @@ export const Sidebar = () => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    db.collection("rooms").onSnapshot((snapshot) => {
+   const unsubscribe = db.collection("rooms").onSnapshot((snapshot) => {
       // const testRooms = snapshot.docs.map((doc) => console.log(doc.data()));
       setRooms(
         snapshot.docs.map((doc) => ({
@@ -21,7 +21,9 @@ export const Sidebar = () => {
         }))
       );
     });
-    console.log(rooms, "what re rooms");
+    return () => {
+      unsubscribe();
+    }
   }, []);
 
   return (
