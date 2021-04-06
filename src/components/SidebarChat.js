@@ -5,7 +5,9 @@ import db from "../firebase";
 import { Link } from "react-router-dom";
 
 export const SidebarChat = ({ id, name, addNewChat }) => {
-  const [seed, setSeed] = useState("");
+  const [seed, setSeed] = useState(0);
+  //changed from "" to 0 above
+  
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));

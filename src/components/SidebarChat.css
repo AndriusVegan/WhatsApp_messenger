@@ -11,3 +11,8 @@
 .sidebarChat__info {
   padding-left: 12px;
 }
+
+a {
+  text-decoration: none !important;
+  color: black;
+}
